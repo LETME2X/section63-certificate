@@ -13,6 +13,8 @@
     --accent: #23405f;
     --warn: #7a5a12;
     --warn-bg: #fbf5e6;
+    --serif: "Times New Roman", Times, "Liberation Serif", Georgia, serif;
+    --mono: Consolas, "SF Mono", Menlo, "Liberation Mono", monospace;
   }
   * { box-sizing: border-box; }
   html { font-size: 15px; }
@@ -24,12 +26,17 @@
     line-height: 1.55;
   }
   main { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
-  h1 { font-size: 1.55rem; font-weight: 600; line-height: 1.25; margin: 0 0 6px; }
-  .sub { color: var(--ink-soft); margin: 0 0 32px; }
-  h2 { font-size: 1.12rem; font-weight: 600; margin: 44px 0 14px; padding-top: 18px; border-top: 1px solid var(--rule); }
-  h3 { font-size: 1rem; font-weight: 600; margin: 22px 0 8px; }
+  .act { font-family: var(--serif); font-size: 1.05rem; color: var(--ink-soft); margin: 0 0 4px; }
+  h1 { font-family: var(--serif); font-size: 2.1rem; font-weight: 700; line-height: 1.15; margin: 0 0 10px; letter-spacing: -0.005em; }
+  .sub { color: var(--ink-soft); margin: 0 0 32px; max-width: 64ch; }
+  h2 { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; margin: 48px 0 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+  h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin: 24px 0 6px; }
   p { margin: 0 0 12px; }
-  .statute { color: var(--ink-soft); font-style: italic; margin-bottom: 14px; }
+  .statute { font-family: var(--serif); font-style: italic; font-size: 1.08rem; line-height: 1.5; color: var(--ink); margin: 0 0 14px; max-width: 70ch; }
+  [lang="hi"] { font-family: "Nirmala UI", Mangal, "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif; font-style: normal; }
+  .langrow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 8px; }
+  .langrow label { margin: 0; }
+  .langrow select { width: auto; }
   .notice { border-left: 3px solid var(--accent); padding: 10px 14px; margin: 0 0 14px; background: var(--field); }
   .notice p:last-child { margin-bottom: 0; }
   label { display: block; font-size: 0.92rem; color: var(--ink-soft); margin: 10px 0 4px; }
@@ -52,11 +59,18 @@
   }
   .drop.over { border-color: var(--accent); color: var(--ink); }
   .drop input { display: none; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 6px 0 10px; }
-  th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--rule); }
-  th { font-weight: 600; color: var(--ink-soft); }
-  td.hash { font-family: Consolas, "SF Mono", Menlo, monospace; font-size: 0.82rem; word-break: break-all; }
-  td.act { white-space: nowrap; }
+  .record { padding: 14px 0 12px; border-bottom: 1px solid var(--rule); }
+  .record:first-child { border-top: 1px solid var(--rule); }
+  .record .name { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.95rem; }
+  .record .name span { word-break: break-all; }
+  .hashval { font-family: var(--mono); font-size: 1.15rem; line-height: 1.6; margin: 6px 0 4px; letter-spacing: 0.01em; }
+  .hashval span { display: inline-block; }
+  .hashval span + span { margin-left: 0.5em; }
+  .hashval.pending { color: var(--ink-soft); font-size: 1rem; }
+  .record .meta { font-size: 0.88rem; color: var(--ink-soft); }
+  .record .tools { display: flex; gap: 8px; flex-shrink: 0; }
+  .verdict { font-family: var(--serif); font-size: 1.2rem; margin: 12px 0 4px; }
+  .verdict.bad { color: var(--warn); }
   button {
     font: inherit; padding: 9px 16px; border-radius: 2px; cursor: pointer;
     border: 1px solid var(--accent); background: var(--accent); color: #fff;
@@ -68,8 +82,8 @@
   .warn ul { margin: 4px 0 0 18px; padding: 0; }
   .muted { color: var(--ink-soft); font-size: 0.9rem; }
   ol.decisions { padding-left: 22px; }
-  ol.decisions li { margin-bottom: 16px; }
-  ol.decisions li strong { display: block; margin-bottom: 3px; }
+  ol.decisions li { margin-bottom: 18px; max-width: 72ch; }
+  ol.decisions li strong { display: block; margin-bottom: 3px; font-family: var(--serif); font-size: 1.1rem; }
   a { color: var(--accent); }
   footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 0.88rem; }
 </style>
@@ -77,16 +91,26 @@
 <body>
 <main>
 
-<h1>Certificate under section 63(4)(c), Bharatiya Sakshya Adhiniyam, 2023</h1>
-<p class="sub">Fills the Schedule form (Part A and Part B), computes the hash value of the electronic record on this computer, and produces the certificate and the hash report as Word documents. Nothing you enter or drop here leaves this page.</p>
+<p class="act">Bharatiya Sakshya Adhiniyam, 2023 — The Schedule, see section 63(4)(c)</p>
+<h1>Certificate for an electronic record</h1>
+<p class="sub">Fills the Schedule form (Part A and Part B), computes the hash value of the electronic record on this computer, and produces the certificate and the hash report as Word documents. Also checks a hash value stated by someone else against a file. Nothing you enter or drop here leaves this page.</p>
 
 <div class="notice">
   <p><strong>Which law governs your proceeding?</strong> This is the form prescribed by the Schedule to the Bharatiya Sakshya Adhiniyam, 2023, in force from 1 July 2024. Under section 170 of the Adhiniyam, matters pending before that date may continue under the Indian Evidence Act, 1872, where section 65B applies and no form is prescribed. Confirm which law applies before using this certificate.</p>
 </div>
 
+<div class="langrow">
+  <label for="docLang">Language of the certificate and hash report</label>
+  <select id="docLang">
+    <option value="en" selected>English — Gazette pp. 46–47</option>
+    <option value="hi">हिन्दी — राजपत्र पृ. 534–535</option>
+  </select>
+  <span class="muted">The form below stays in English; the documents and the quoted Schedule lines follow this choice.</span>
+</div>
+
 <!-- ============ 1. Records ============ -->
 <h2>1. Electronic record(s) and hash value</h2>
-<p class="statute">“I state that the HASH value/s of the electronic/digital record/s is ___, obtained through the following algorithm:— ☐ SHA1: ☐ SHA256: ☐ MD5: ☐ Other (Legally acceptable standard) (Hash report to be enclosed with the certificate)”</p>
+<p class="statute" data-hi="“मैं, कथन करता/करती हूं कि इलैक्ट्रानिक/डिजिटल अभिलेख/अभिलेख का निम्नलिखित एल्गोरिथ्म के माध्यम से अभिप्राप्त हैश मान ___ है । ☐ एसएचए1 : ☐ एसएचए256 : ☐ एमडी5 : ☐ अन्य (विधिक रूप से स्वीकार्य मानक) (प्रमाणपत्र के साथ हैश रिपोर्ट संलग्न करें)”">“I state that the HASH value/s of the electronic/digital record/s is ___, obtained through the following algorithm:— ☐ SHA1: ☐ SHA256: ☐ MD5: ☐ Other (Legally acceptable standard) (Hash report to be enclosed with the certificate)”</p>
 
 <label for="algo">Algorithm (one algorithm per certificate)</label>
 <select id="algo" style="max-width: 440px">
@@ -99,12 +123,12 @@
   <input type="file" id="fileInput" multiple>
   Drop the file(s) that constitute the electronic record here, or click to choose. Drop the exact file you will produce to the court; the hash is computed on it as it is now.
 </div>
-<div id="fileList"></div>
+<div id="fileList" aria-live="polite"></div>
 <p class="muted">Do not open and re-save an exported file after hashing; the hash will change. Very large files may take some time.</p>
 
 <!-- ============ 2. Part A ============ -->
 <h2>2. Part A — to be filled by the Party</h2>
-<p class="statute">“I, ___ (Name), Son/daughter/spouse of ___ residing/employed at ___ do hereby solemnly affirm and sincerely state and submit as follows:—”</p>
+<p class="statute" data-hi="“मैं, ___ (नाम), पुत्र/पुत्री/पति/पत्नी ___, जो ___ का निवासी ___ में नियोजित हूं, सत्यनिष्ठापूर्वक प्रतिज्ञान और शुद्ध अन्तःकरण से कथन करता/करती हूं और निम्नानुसार प्रस्तुत करता/करती हूं कि :—”">“I, ___ (Name), Son/daughter/spouse of ___ residing/employed at ___ do hereby solemnly affirm and sincerely state and submit as follows:—”</p>
 
 <label for="aName">Name</label>
 <input type="text" id="aName" autocomplete="off">
@@ -139,7 +163,7 @@
 </div>
 
 <h3>Device / digital record source</h3>
-<p class="statute">“I have produced electronic record/output of the digital record taken from the following device/digital record source (tick mark):—”</p>
+<p class="statute" data-hi="“मैंने निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से लिए गए डिजिटल अभिलेख का इलैक्ट्रानिक अभिलेख/आउटपुट प्रस्तुत किया है (चिह्न लगाएं) :”">“I have produced electronic record/output of the digital record taken from the following device/digital record source (tick mark):—”</p>
 <div class="checks" id="sources">
   <label><input type="checkbox" value="Computer / Storage Media"> Computer / Storage Media</label>
   <label><input type="checkbox" value="DVR"> DVR</label>
@@ -154,7 +178,7 @@
 <input type="text" id="otherSource" autocomplete="off">
 
 <h3>Particulars of the device / digital record</h3>
-<p class="statute">“Make &amp; Model: ___ Color: ___ Serial Number: ___ IMEI/UIN/UID/MAC/Cloud ID ___ (as applicable) and any other relevant information, if any, about the device/digital record ___ (specify).”</p>
+<p class="statute" data-hi="“बनावट और मॉडल : ___ रंग : ___ क्रम संख्या : ___ आईएमईआई/यूआईएन/यूआईडी/एमएसी/क्लाउड आईडी ___ (जैसा लागू हो) और डिवाइस/डिजिटल अभिलेख ___ (विनिर्दिष्ट करें) के विषय में कोई अन्य सुसंगत सूचना, यदि कोई हो ।”">“Make &amp; Model: ___ Color: ___ Serial Number: ___ IMEI/UIN/UID/MAC/Cloud ID ___ (as applicable) and any other relevant information, if any, about the device/digital record ___ (specify).”</p>
 <div class="row3">
   <div><label for="make">Make &amp; Model</label><input type="text" id="make" autocomplete="off"></div>
   <div><label for="colour">Color</label><input type="text" id="colour" autocomplete="off"></div>
@@ -166,7 +190,7 @@
 <textarea id="otherInfo" rows="2"></textarea>
 
 <h3>Control of the device</h3>
-<p class="statute">“The digital device or the source of the digital record is:— Owned ☐ Maintained ☐ Managed ☐ Operated ☐ by me (select as applicable).”</p>
+<p class="statute" data-hi="“डिजिटल डिवाइस या डिजिटल अभिलेख का स्रोत मेरे द्वारा :— स्वामित्वाधीन ☐ अनुरक्षित ☐ प्रबंधित ☐ प्रचालित (जो लागू हो उसका चयन करें) है ।”">“The digital device or the source of the digital record is:— Owned ☐ Maintained ☐ Managed ☐ Operated ☐ by me (select as applicable).”</p>
 <div class="checks" id="control">
   <label><input type="checkbox" value="Owned"> Owned</label>
   <label><input type="checkbox" value="Maintained"> Maintained</label>
@@ -184,8 +208,8 @@
 
 <!-- ============ 3. Part B ============ -->
 <h2>3. Part B — to be filled by the Expert</h2>
-<p class="statute">“The produced electronic record/output of the digital record are obtained from the following device/digital record source (tick mark):— … I state that the HASH value/s of the electronic/digital record/s is ___ … (Name, designation and signature)”</p>
-<p>The device particulars, source ticks, hash values and algorithm in Part B are printed from Part A above. The expert should verify them before signing. Who may sign Part B is an open question of law — see decision 4 below. Nothing here is copied from the Part A signatory.</p>
+<p class="statute" data-hi="“प्रस्तुत किए गए डिजिटल अभिलेख के इलैक्ट्रानिकी अभिलेख/आउटपुट, निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से अभिप्राप्त किए गए हैं (चिह्न लगाएं) : … हैश मान ___ है :— … (नाम, पदनाम और हस्ताक्षर)”">“The produced electronic record/output of the digital record are obtained from the following device/digital record source (tick mark):— … I state that the HASH value/s of the electronic/digital record/s is ___ … (Name, designation and signature)”</p>
+<p>The device particulars, source ticks, hash values and algorithm in Part B are printed from Part A above. The expert should verify them before signing. Who may sign Part B is an open question of law — see decision 4 in section 6. Nothing here is copied from the Part A signatory.</p>
 
 <label for="bName">Name of expert (leave blank to print a blank for the expert to complete)</label>
 <input type="text" id="bName" autocomplete="off">
@@ -231,14 +255,25 @@
 <div id="warnings"></div>
 <p class="muted">Blank fields are printed as blank lines for completion by hand. The certificate is a Word file in the Schedule's wording; check it against the Gazette text before filing. Independently verify a hash with <code>certutil -hashfile &lt;file&gt; SHA256</code> (Windows) or <code>shasum -a 256 &lt;file&gt;</code> (macOS/Linux).</p>
 
-<!-- ============ 5. Decisions ============ -->
-<h2>5. Decisions this page does not make</h2>
+<!-- ============ 5. Verify ============ -->
+<h2>5. Check a hash value stated by someone else</h2>
+<p>When the other side, or the police, files a certificate with a hash value, drop the file they produced and paste the value from their certificate. The page recomputes the hash and tells you whether it is the same file. The algorithm is read from the length of the value: 64 characters SHA256, 40 SHA1, 32 MD5.</p>
+<label for="statedHash">Hash value as stated in the certificate</label>
+<input type="text" id="statedHash" autocomplete="off" spellcheck="false" style="font-family: var(--mono)">
+<div class="drop" id="vDrop">
+  <input type="file" id="vFileInput">
+  Drop the file that was produced with that certificate, or click to choose.
+</div>
+<div id="vResult"></div>
+
+<!-- ============ 6. Decisions ============ -->
+<h2>6. Decisions this page does not make</h2>
 <p class="muted">Drafted from the sources linked. Not legal advice. For counsel's review before reliance.</p>
 <ol class="decisions">
   <li>
     <strong>Is a certificate required at all?</strong>
-    Section 63 applies to a “computer output” — information from an electronic record that is printed, stored, recorded or copied — proved without producing the original. Section 57, Explanation 5, treats an electronic record produced from proper custody as primary evidence unless it is disputed. In <em>Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal</em>, (2020) 7 SCC 1, para 34, the Supreme Court said the certificate is unnecessary where the original device is produced by its owner, who proves that the device is owned or operated by him; the Himachal Pradesh High Court applied this under the Adhiniyam in <em>Nirmal Malakar v. Larisa Enterprises</em> (1 June 2026). Whether you are producing the original or a copy is your decision.
-    <span class="muted">Sources: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>; <a href="https://www.lawtodaylive.com/judgment/10d2d94966c66c690ed4cdfe5e8347ad">Nirmal Malakar (HP HC)</a>.</span>
+    Section 63 applies to a “computer output” — information from an electronic record that is printed, stored, recorded or copied — proved without producing the original. Section 57, Explanation 5, treats an electronic record produced from proper custody as primary evidence unless it is disputed. In <em>Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal</em>, (2020) 7 SCC 1, para 34, the Supreme Court said the certificate is unnecessary where the original device is produced by its owner, who proves that the device is owned or operated by him; the Himachal Pradesh High Court applied this under the Adhiniyam in <em>Nirmal Malakar v. Larisa Enterprises</em> (1 June 2026), and the Patna High Court in <em>Jyoti Rani v. Nishant Kumar</em> (6 August 2026) set aside a divorce decree because WhatsApp messages had been exhibited without the certificate, holding that oral evidence cannot cure the omission. Whether you are producing the original or a copy is your decision.
+    <span class="muted">Sources: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>; <a href="https://www.lawtodaylive.com/judgment/10d2d94966c66c690ed4cdfe5e8347ad">Nirmal Malakar (HP HC)</a>; <a href="https://www.livelaw.in/high-court/patna-high-court/patna-high-court-whatsapp-messages-inadmissible-section65b-certificate-545171">Jyoti Rani (Patna HC), LiveLaw</a>.</span>
   </li>
   <li>
     <strong>Which law governs the proceeding?</strong>
@@ -265,10 +300,15 @@
     Section 63(4) says the certificate is to be submitted along with the electronic record at each instance where it is being submitted for admission. Under section 65B the Supreme Court in <em>Arjun Panditrao</em> allowed later production in some circumstances. Whether that flexibility carries into the Adhiniyam is for counsel to assess.
     <span class="muted">Source: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>; (2020) 7 SCC 1.</span>
   </li>
+  <li>
+    <strong>Does a Family Court need the certificate at all?</strong>
+    Section 14 of the Family Courts Act, 1984 allows a Family Court to receive any report, statement, document, information or matter that may assist it, whether or not it would otherwise be admissible under the law of evidence. The Bombay High Court (<em>AMB v. SB</em>, 2026:BHC-NAG:5200-DB, April 2026) treated section 65B objections as inapplicable in family proceedings on that basis. The Patna High Court, four months later in <em>Jyoti Rani</em>, applied the certificate requirement strictly in a matrimonial appeal. Which line your Family Court follows is for counsel; the safer course is usually to file the certificate anyway.
+    <span class="muted">Sources: <a href="https://www.verdictum.in/court-updates/high-courts/bombay-high-court/amb-v-sb-2026bhc-nag5200-db-mental-cruelty-divorce-matrimonial-law-1611293">AMB v. SB (Bombay HC), Verdictum</a>; <a href="https://www.livelaw.in/high-court/patna-high-court/patna-high-court-whatsapp-messages-inadmissible-section65b-certificate-545171">Jyoti Rani (Patna HC), LiveLaw</a>.</span>
+  </li>
 </ol>
 
 <footer>
-  Schedule wording and layout checked against the Gazette of India, Extraordinary, Part II, Section 1, No. 55, 25 December 2023 (Act No. 47 of 2023), pages 46–47, on 9 September 2026. Hashing uses the browser's Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). Everything runs locally; the page makes no network requests. First version, September 2026.
+  English Schedule wording and layout checked against the Gazette of India, Extraordinary, Part II, Section 1, No. 55, 25 December 2023 (Act No. 47 of 2023), pages 46–47; Hindi against the Gazette of India, Extraordinary, Part II, Section 1A (अनुभाग 1क), pages 534–535, published 27 March 2024 — both on 9 September 2026. One deliberate departure: the Hindi Gazette prints three boxes on the स्वामित्वाधीन/अनुरक्षित/प्रबंधित/प्रचालित line; a fourth is added so that प्रचालित can be ticked. The Hindi hash report wording is this page's own, not statutory text. Hashing uses the browser's Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). Everything runs locally; the page makes no network requests. September 2026.
 </footer>
 
 </main>
@@ -456,55 +496,127 @@ function para(content, opts) {
 /** A checkbox glyph run: ballot box with X when checked, empty box otherwise. */
 function box(checked) { return run(checked ? '\u2612' : '\u2610', { symbol: true }); }
 
+/* ---- Schedule text in both authoritative languages ----
+   EN: Gazette of India Extraordinary, Part II, Section 1, No. 55, 25 Dec 2023, pp. 46-47.
+   HI: Gazette of India Extraordinary, Part II, Section 1A (अनुभाग 1क), pp. 534-535, published 27 Mar 2024. */
+var TEXT = {
+  en: {
+    schedule: 'THE SCHEDULE', see: '[See section 63(4)(c)]', certificate: 'CERTIFICATE',
+    partA: 'PART A', partAFill: '(To be filled by the Party)', partB: 'PART B', partBFill: '(To be filled by the Expert)',
+    sources: SOURCES,
+    producedA: 'I have produced electronic record/output of the digital record taken from the following device/digital record source (tick mark):\u2014',
+    producedB: 'The produced electronic record/output of the digital record are obtained from the following device/digital record source (tick mark):\u2014',
+    other: 'Other: ', makeModel: 'Make & Model: ', colour: '   Color: ', serial: 'Serial Number: ',
+    imei: 'IMEI/UIN/UID/MAC/Cloud ID ', asApplicable: ' (as applicable) and any other relevant information, if any, about the device/digital record ', specify: ' (specify).',
+    declaration: 'The digital device or the digital record source was under the lawful control for regularly creating, storing or processing information for the purposes of carrying out regular activities and during this period, the computer or the communication device was working properly and the relevant information was regularly fed into the computer during the ordinary course of business. If the computer/digital device at any point of time was not working properly or out of operation, then it has not affected the electronic/digital record or its accuracy. The digital device or the source of the digital record is:\u2014',
+    control: CONTROL, controlPost: 'by me (select as applicable).',
+    hashPreA: 'I state that the HASH value/s of the electronic/digital record/s is ', hashPostA: ', obtained through the following algorithm:\u2014',
+    hashPreB: 'I state that the HASH value/s of the electronic/digital record/s is ', hashPostB: ', obtained through the following algorithm:\u2014',
+    algo: { SHA1: 'SHA1:', SHA256: 'SHA256:', MD5: 'MD5:' },
+    otherAlgo: 'Other__________________ (Legally acceptable standard)', hashReportNote: '(Hash report to be enclosed with the certificate)',
+    nameSig: '(Name and signature)', nameDesigSig: '(Name, designation and signature)',
+    date: 'Date (DD/MM/YYYY): ', time: 'Time (IST): ', timePost: 'hours (In 24 hours format)', place: 'Place: ',
+    report: {
+      title: 'HASH REPORT', sub: 'Enclosure to the certificate under section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023 (The Schedule)',
+      signedBy: 'Certificate signed by (Part A): ', algo: 'Hash algorithm: ', count: 'Number of electronic records: ', none: 'No file was hashed.',
+      record: 'Record ', fileName: 'File name: ', size: 'Size: ', bytes: ' bytes', algorithm: 'Algorithm: ', hashValue: 'Hash value: ', computedOn: 'Computed on: ', at: ' at ', hours: ' hours (IST)',
+      method: 'Method',
+      methodText: 'Each hash value above was computed on the file as supplied, in a web browser on the user\u2019s own computer, using the browser\u2019s Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). No file was transmitted to any server. Any change to a file after computation, including opening and re-saving it, produces a different hash value.',
+      verify: function (algo) { return 'The same value can be independently obtained with "certutil -hashfile <file> ' + algo + '" on Windows, or "shasum -a ' + (algo === 'SHA1' ? '1' : '256') + ' <file>" (for MD5: "md5 <file>") on macOS or Linux.'; }
+    }
+  },
+  hi: {
+    schedule: 'अनुसूची', see: '[धारा 63(4)(ग) देखिए]', certificate: 'प्रमाणपत्र',
+    partA: 'भाग क', partAFill: '(पक्षकार द्वारा भरा जाना है)', partB: 'भाग ख', partBFill: '(विशेषज्ञ द्वारा भरा जाना है)',
+    sources: ['कम्प्यूटर/संग्रहण मीडिया', 'डीवीआर', 'मोबाइल', 'फ्लैश ड्राइव', 'सीडी/डीवीडी', 'सर्वर', 'क्लाउड', 'अन्य'],
+    producedA: 'मैंने निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से लिए गए डिजिटल अभिलेख का इलैक्ट्रानिक अभिलेख/आउटपुट प्रस्तुत किया है (चिह्न लगाएं) :',
+    producedB: 'प्रस्तुत किए गए डिजिटल अभिलेख के इलैक्ट्रानिकी अभिलेख/आउटपुट, निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से अभिप्राप्त किए गए हैं (चिह्न लगाएं) :',
+    other: 'अन्य : ', makeModel: 'बनावट और मॉडल : ', colour: '   रंग : ', serial: 'क्रम संख्या : ',
+    imei: 'आईएमईआई/यूआईएन/यूआईडी/एमएसी/क्लाउड आईडी ', asApplicable: ' (जैसा लागू हो)',
+    otherInfoPre: 'और डिवाइस/डिजिटल अभिलेख', otherInfoPost: ' (विनिर्दिष्ट करें) के विषय में कोई अन्य सुसंगत सूचना, यदि कोई हो ।',
+    declaration: 'डिजिटल डिवाइस या डिजिटल अभिलेख स्रोत नियमित क्रियाकलाप करने के प्रयोजनों के लिए नियमित रूप से सूचना का सृजन करने, संग्रह करने या प्रोसेस करने के लिए विधिपूर्ण नियंत्रण के अधीन था और इस अवधि के दौरान कंप्यूटर या संसूचना डिवाइस उचित रूप से कार्य कर रही थी तथा कारबार के साधारण अनुक्रम के दौरान सुसंगत सूचना को कंप्यूटर में नियमित रूप से फीड किया गया था । यदि किसी भी समय कंप्यूटर/डिजिटल डिवाइस उचित रूप से कार्य नहीं कर रही थी या प्रचालन में नहीं थी, तब इससे इलैक्ट्रानिक/डिजिटल अभिलेख या उसकी शुद्धता प्रभावित नहीं हुई है । डिजिटल डिवाइस या डिजिटल अभिलेख का स्रोत मेरे द्वारा :\u2014',
+    control: ['स्वामित्वाधीन', 'अनुरक्षित', 'प्रबंधित', 'प्रचालित'], controlPost: '(जो लागू हो उसका चयन करें) है ।',
+    hashPreA: 'मैं, कथन करता/करती हूं कि इलैक्ट्रानिक/डिजिटल अभिलेख/अभिलेख का निम्नलिखित एल्गोरिथ्म के माध्यम से अभिप्राप्त हैश मान ', hashPostA: ' है ।',
+    hashPreB: 'मैं, कथन करता/करती हूं कि इलैक्ट्रानिक/डिजिटल अभिलेख का निम्नलिखित एल्गोरिथ्म के माध्यम से अभिप्राप्त हैश मान ', hashPostB: ' है :\u2014',
+    algo: { SHA1: 'एसएचए1 :', SHA256: 'एसएचए256 :', MD5: 'एमडी5 :' },
+    otherAlgo: 'अन्य .................... (विधिक रूप से स्वीकार्य मानक)', hashReportNote: '(प्रमाणपत्र के साथ हैश रिपोर्ट संलग्न करें)',
+    nameSig: '(नाम और हस्ताक्षर)', nameDesigSig: '(नाम, पदनाम और हस्ताक्षर)',
+    date: 'तारीख (दिन/मास/वर्ष) : ', time: 'समय (आईएसटी) : ', timePost: '(24 घंटे के प्ररूप में)', place: 'स्थान : ',
+    report: {
+      title: 'हैश रिपोर्ट', sub: 'भारतीय साक्ष्य अधिनियम, 2023 की धारा 63(4)(ग) के अधीन प्रमाणपत्र (अनुसूची) का संलग्नक',
+      signedBy: 'प्रमाणपत्र (भाग क) पर हस्ताक्षर करने वाला व्यक्ति : ', algo: 'हैश एल्गोरिथ्म : ', count: 'इलैक्ट्रानिक अभिलेखों की संख्या : ', none: 'किसी फाइल का हैश मान नहीं निकाला गया ।',
+      record: 'अभिलेख ', fileName: 'फाइल का नाम : ', size: 'आकार : ', bytes: ' बाइट', algorithm: 'एल्गोरिथ्म : ', hashValue: 'हैश मान : ', computedOn: 'गणना की तारीख : ', at: ', समय ', hours: ' बजे (आईएसटी)',
+      method: 'विधि',
+      methodText: 'उपर्युक्त प्रत्येक हैश मान की गणना फाइल को, जैसी प्रस्तुत की गई थी, उसी रूप में उपयोगकर्ता के अपने कंप्यूटर पर वेब ब्राउज़र में की गई \u2014 एसएचए256 और एसएचए1 के लिए ब्राउज़र के Web Crypto API द्वारा तथा एमडी5 के लिए जावास्क्रिप्ट कार्यान्वयन (RFC 1321) द्वारा । कोई फाइल किसी सर्वर को नहीं भेजी गई । गणना के बाद फाइल में किसी भी परिवर्तन से, जिसमें फाइल को खोलकर पुनः सहेजना भी शामिल है, हैश मान बदल जाता है ।',
+      verify: function (algo) { return 'यही मान विंडोज़ पर "certutil -hashfile <file> ' + algo + '" कमांड से, अथवा macOS/Linux पर "shasum -a ' + (algo === 'SHA1' ? '1' : '256') + ' <file>" (एमडी5 के लिए "md5 <file>") से स्वतंत्र रूप से प्राप्त किया जा सकता है ।'; }
+    }
+  }
+};
+
+/** Text pack for the language recorded in the form data. */
+function textFor(d) { return TEXT[d.lang === 'hi' ? 'hi' : 'en']; }
+
 /**
- * The Schedule's two-line device tick list. Input: array of ticked source names.
+ * The Schedule's two-line device tick list. Input: array of ticked source names (English keys), text pack.
  * Output: array of two <w:p> strings.
  */
-function sourceLines(ticked) {
-  var line = function (names) {
+function sourceLines(ticked, L) {
+  var line = function (idx) {
     var runs = [];
-    names.forEach(function (n, i) {
-      runs.push(run((i ? '   ' : '') + n + ' '));
-      runs.push(box(ticked.indexOf(n) >= 0));
+    idx.forEach(function (k, i) {
+      runs.push(run((i ? '   ' : '') + L.sources[k] + ' '));
+      runs.push(box(ticked.indexOf(SOURCES[k]) >= 0));
     });
     return para(runs);
   };
-  return [line(SOURCES.slice(0, 4)), line(SOURCES.slice(4))];
+  return [line([0, 1, 2, 3]), line([4, 5, 6, 7])];
 }
 
-/** Device particulars from the Schedule, laid out on three lines as in the Gazette. Input: form data. Output: array of <w:p>. */
-function particularsLines(d) {
-  return [
-    para([run('Make & Model: '), run(fill(d.make)), run('   Color: '), run(fill(d.colour))]),
-    para([run('Serial Number: '), run(fill(d.serial))]),
-    para([
-      run('IMEI/UIN/UID/MAC/Cloud ID '), run(fill(d.devId)),
-      run(' (as applicable) and any other relevant information, if any, about the device/digital record '),
-      run(fill(d.otherInfo)), run(' (specify).')
-    ])
+/** Device particulars, laid out line by line as in the Gazette of each language. Input: form data, text pack. Output: array of <w:p>. */
+function particularsLines(d, L) {
+  var ps = [
+    para([run(L.other), run(fill(d.otherSource, 40))]),
+    para([run(L.makeModel), run(fill(d.make)), run(L.colour), run(fill(d.colour))]),
+    para([run(L.serial), run(fill(d.serial))])
   ];
+  if (L === TEXT.hi) {
+    ps.push(para([run(L.imei), run(fill(d.devId, 30)), run(L.asApplicable)]));
+    ps.push(para([run(L.otherInfoPre + ' '), run(fill(d.otherInfo, 18)), run(L.otherInfoPost)]));
+  } else {
+    ps.push(para([run(L.imei), run(fill(d.devId)), run(L.asApplicable), run(fill(d.otherInfo)), run(L.specify)]));
+  }
+  return ps;
 }
 
-/** The hash statement, the algorithm list and the hash-report note. Input: form data. Output: array of <w:p>. */
-function hashLines(d) {
-  var runs = [run('I state that the HASH value/s of the electronic/digital record/s is ')];
+/** The hash statement, the algorithm list and the hash-report note. Input: form data, text pack, 'A' or 'B'. Output: array of <w:p>. */
+function hashLines(d, L, part) {
+  var runs = [run(part === 'B' ? L.hashPreB : L.hashPreA)];
   if (d.files.length === 0) runs.push(run('_'.repeat(40)));
   d.files.forEach(function (f, i) {
     if (i) runs.push(run('; '));
     if (d.files.length > 1) runs.push(run('(' + (i + 1) + ') '));
     runs.push(run(f.hash, { mono: true }));
   });
-  runs.push(run(', obtained through the following algorithm:\u2014'));
+  runs.push(run(part === 'B' ? L.hashPostB : L.hashPostA));
 
   var out = [para(runs)];
-  ALGOS.forEach(function (a) { out.push(para([box(d.algo === a), run('  ' + a + ':')])); });
-  out.push(para([box(false), run('  Other__________________ (Legally acceptable standard)')]));
-  out.push(para('(Hash report to be enclosed with the certificate)'));
+  ALGOS.forEach(function (a) { out.push(para([box(d.algo === a), run('  ' + L.algo[a])])); });
+  out.push(para([box(false), run('  ' + L.otherAlgo)]));
+  out.push(para(L.hashReportNote));
   return out;
 }
 
-/** Opening affirmation sentence for either Part. Input: {name, rel, parent, res, address}. */
-function affirmationLine(p) {
+/** Opening affirmation sentence for either Part. Input: {name, rel, parent, res, address}, text pack. */
+function affirmationLine(p, L) {
+  if (L === TEXT.hi) {
+    var relHi = { Son: 'पुत्र', Daughter: 'पुत्री', Spouse: 'पति/पत्नी' }[p.rel] || 'पुत्र/पुत्री/पति/पत्नी';
+    var resAddr = p.res === 'employed' ? '' : p.address, empAddr = p.res === 'employed' ? p.address : '';
+    return para([
+      run('मैं, '), run(fill(p.name, 25)), run(' (नाम), '), run(relHi + ' '), run(fill(p.parent, 20)),
+      run(', जो '), run(fill(resAddr, 22)), run(' का निवासी '), run(fill(empAddr, 22)),
+      run(' में नियोजित हूं, सत्यनिष्ठापूर्वक प्रतिज्ञान और शुद्ध अन्तःकरण से कथन करता/करती हूं और निम्नानुसार प्रस्तुत करता/करती हूं कि :\u2014')
+    ]);
+  }
   var relWord = p.rel ? p.rel + ' of ' : 'Son/daughter/spouse of ';
   var resWord = p.res ? p.res + ' at ' : 'residing/employed at ';
   return para([
@@ -514,12 +626,12 @@ function affirmationLine(p) {
   ]);
 }
 
-/** Date, time and place on three lines as in the Gazette. Input: {date, time, place}. Output: array of <w:p>. */
-function dateLines(p) {
+/** Date, time and place on three lines as in the Gazette. Input: {date, time, place}, text pack. Output: array of <w:p>. */
+function dateLines(p, L) {
   return [
-    para([run('Date (DD/MM/YYYY): '), run(fill(p.date, 12))]),
-    para([run('Time (IST): '), run(p.time.trim() ? p.time.trim() + ' ' : '_'.repeat(8)), run('hours (In 24 hours format)')]),
-    para([run('Place: '), run(fill(p.place, 15))])
+    para([run(L.date), run(fill(p.date, 12))]),
+    para([run(L.time), run(p.time.trim() ? p.time.trim() + ' ' : '_'.repeat(8) + ' '), run(L.timePost)]),
+    para([run(L.place), run(fill(p.place, 15))])
   ];
 }
 
@@ -532,71 +644,69 @@ function signatureBlock(lines, label) {
 }
 
 /**
- * Body XML of the Schedule certificate (Part A and Part B) from the form data.
+ * Body XML of the Schedule certificate (Part A and Part B) from the form data, in the chosen language.
  * Output: string of <w:p> elements.
  */
 function certificateBody(d) {
-  var ps = [];
-  ps.push(para('THE SCHEDULE', { center: true, bold: true }));
-  ps.push(para('[See section 63(4)(c)]', { center: true }));
-  ps.push(para('CERTIFICATE', { center: true, bold: true }));
-  ps.push(para('PART A', { center: true, bold: true }));
-  ps.push(para('(To be filled by the Party)', { center: true }));
-  ps.push(affirmationLine(d.a));
-  ps.push(para('I have produced electronic record/output of the digital record taken from the following device/digital record source (tick mark):\u2014'));
-  ps = ps.concat(sourceLines(d.sources));
-  ps.push(para([run('Other: '), run(fill(d.otherSource, 40))]));
-  ps = ps.concat(particularsLines(d));
-  ps.push(para('The digital device or the digital record source was under the lawful control for regularly creating, storing or processing information for the purposes of carrying out regular activities and during this period, the computer or the communication device was working properly and the relevant information was regularly fed into the computer during the ordinary course of business. If the computer/digital device at any point of time was not working properly or out of operation, then it has not affected the electronic/digital record or its accuracy. The digital device or the source of the digital record is:\u2014'));
+  var L = textFor(d), ps = [];
+  ps.push(para(L.schedule, { center: true, bold: true }));
+  ps.push(para(L.see, { center: true }));
+  ps.push(para(L.certificate, { center: true, bold: true }));
+  ps.push(para(L.partA, { center: true, bold: true }));
+  ps.push(para(L.partAFill, { center: true }));
+  ps.push(affirmationLine(d.a, L));
+  ps.push(para(L.producedA));
+  ps = ps.concat(sourceLines(d.sources, L));
+  ps = ps.concat(particularsLines(d, L));
+  ps.push(para(L.declaration));
   var ctl = [];
-  CONTROL.forEach(function (c, i) { ctl.push(run((i ? '   ' : '') + c + ' ')); ctl.push(box(d.control.indexOf(c) >= 0)); });
+  L.control.forEach(function (c, i) { ctl.push(run((i ? '   ' : '') + c + ' ')); ctl.push(box(d.control.indexOf(CONTROL[i]) >= 0)); });
   ps.push(para(ctl));
-  ps.push(para('by me (select as applicable).'));
-  ps = ps.concat(hashLines(d));
-  ps = ps.concat(signatureBlock([d.a.name], '(Name and signature)'));
-  ps = ps.concat(dateLines(d.a));
+  ps.push(para(L.controlPost));
+  ps = ps.concat(hashLines(d, L, 'A'));
+  ps = ps.concat(signatureBlock([d.a.name], L.nameSig));
+  ps = ps.concat(dateLines(d.a, L));
 
-  ps.push(para('PART B', { center: true, bold: true, newPage: true }));
-  ps.push(para('(To be filled by the Expert)', { center: true }));
-  ps.push(affirmationLine(d.b));
-  ps.push(para('The produced electronic record/output of the digital record are obtained from the following device/digital record source (tick mark):\u2014'));
-  ps = ps.concat(sourceLines(d.sources));
-  ps.push(para([run('Other: '), run(fill(d.otherSource, 40))]));
-  ps = ps.concat(particularsLines(d));
-  ps = ps.concat(hashLines(d));
-  ps = ps.concat(signatureBlock([d.b.name, d.b.desig], '(Name, designation and signature)'));
-  ps = ps.concat(dateLines(d.b));
+  ps.push(para(L.partB, { center: true, bold: true, newPage: true }));
+  ps.push(para(L.partBFill, { center: true }));
+  ps.push(affirmationLine(d.b, L));
+  ps.push(para(L.producedB));
+  ps = ps.concat(sourceLines(d.sources, L));
+  ps = ps.concat(particularsLines(d, L));
+  ps = ps.concat(hashLines(d, L, 'B'));
+  ps = ps.concat(signatureBlock([d.b.name, d.b.desig], L.nameDesigSig));
+  ps = ps.concat(dateLines(d.b, L));
   return ps.join('');
 }
 
 /**
- * Body XML of the hash report enclosure from the form data.
+ * Body XML of the hash report enclosure from the form data, in the chosen language.
  * Output: string of <w:p> elements.
  */
 function hashReportBody(d) {
-  var ps = [];
-  ps.push(para('HASH REPORT', { center: true, bold: true }));
-  ps.push(para('Enclosure to the certificate under section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023 (The Schedule)', { center: true }));
+  var L = textFor(d), R = L.report, ps = [];
+  ps.push(para(R.title, { center: true, bold: true }));
+  ps.push(para(R.sub, { center: true }));
   ps.push(para(''));
-  ps.push(para([run('Certificate signed by (Part A): '), run(fill(d.a.name, 25))]));
-  ps.push(para([run('Hash algorithm: '), run(d.algo)]));
-  ps.push(para([run('Number of electronic records: '), run(String(d.files.length))]));
+  ps.push(para([run(R.signedBy), run(fill(d.a.name, 25))]));
+  ps.push(para([run(R.algo), run(d.algo)]));
+  ps.push(para([run(R.count), run(String(d.files.length))]));
   ps.push(para(''));
-  if (d.files.length === 0) ps.push(para('No file was hashed.'));
+  if (d.files.length === 0) ps.push(para(R.none));
   d.files.forEach(function (f, i) {
-    ps.push(para('Record ' + (i + 1), { bold: true }));
-    ps.push(para([run('File name: '), run(f.name)]));
-    ps.push(para([run('Size: '), run(f.size + ' bytes')]));
-    ps.push(para([run('Algorithm: '), run(d.algo)]));
-    ps.push(para([run('Hash value: '), run(f.hash, { mono: true })]));
-    ps.push(para([run('Computed on: '), run(f.date + ' at ' + f.time + ' hours (IST)')]));
+    ps.push(para(R.record + (i + 1), { bold: true }));
+    ps.push(para([run(R.fileName), run(f.name)]));
+    ps.push(para([run(R.size), run(f.size + R.bytes)]));
+    ps.push(para([run(R.algorithm), run(d.algo)]));
+    ps.push(para([run(R.hashValue), run(f.hash, { mono: true })]));
+    ps.push(para([run(R.computedOn), run(f.date + R.at + f.time + R.hours)]));
     ps.push(para(''));
   });
-  ps.push(para('Method', { bold: true }));
-  ps.push(para('Each hash value above was computed on the file as supplied, in a web browser on the user\u2019s own computer, using the browser\u2019s Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). No file was transmitted to any server. Any change to a file after computation, including opening and re-saving it, produces a different hash value.'));
-  ps.push(para('The same value can be independently obtained with "certutil -hashfile <file> ' + d.algo + '" on Windows, or "shasum -a ' + (d.algo === 'SHA1' ? '1' : '256') + ' <file>" (for MD5: "md5 <file>") on macOS or Linux.'));
-  ps = ps.concat(signatureBlock([d.a.name], '(Name and signature)'));
-  ps = ps.concat(dateLines(d.a));
+  ps.push(para(R.method, { bold: true }));
+  ps.push(para(R.methodText));
+  ps.push(para(R.verify(d.algo)));
+  ps = ps.concat(signatureBlock([d.a.name], L.nameSig));
+  ps = ps.concat(dateLines(d.a, L));
   return ps.join('');
 }
 
@@ -685,6 +795,7 @@ function missingItems(d) {
   /** Read every form field into the data object used by the core builders. */
   function readForm() {
     return {
+      lang: $('docLang').value,
       algo: $('algo').value,
       files: files.filter(function (f) { return f.hash; }),
       sources: ticked('sources'),
@@ -699,18 +810,35 @@ function missingItems(d) {
     };
   }
 
-  /** Render the file table with hashes. */
+  /** Hex string as eight-character groups in spans; spacing is visual only, so copying yields the continuous value. */
+  function groups(hex) {
+    return hex.match(/.{1,8}/g).map(function (g) { return '<span>' + g + '</span>'; }).join('');
+  }
+
+  /** Render one block per file: name, the hash large, then algorithm, size and time. */
   function renderFiles() {
     var el = $('fileList');
     if (files.length === 0) { el.innerHTML = ''; return; }
-    var rows = files.map(function (f, i) {
-      return '<tr><td>' + (i + 1) + '</td><td>' + esc(f.name) + '</td><td>' + f.size + '</td>' +
-        '<td class="hash">' + (f.hash ? esc(f.hash) : '<span class="muted">computing…</span>') + '</td>' +
-        '<td class="act"><button class="small quiet" data-remove="' + i + '">Remove</button></td></tr>';
+    var algo = $('algo').value;
+    el.innerHTML = files.map(function (f, i) {
+      var hash = f.hash
+        ? '<div class="hashval">' + groups(f.hash) + '</div>'
+        : '<div class="hashval pending">Computing ' + esc(algo) + '…</div>';
+      var meta = f.hash
+        ? '<div class="meta">' + esc(algo) + ', ' + f.size.toLocaleString('en-IN') + ' bytes, computed ' + esc(f.date) + ' at ' + esc(f.time) + ' IST</div>'
+        : '';
+      return '<div class="record"><div class="name"><span>' + (i + 1) + '. ' + esc(f.name) + '</span>' +
+        '<span class="tools">' + (f.hash ? '<button class="small quiet" data-copy="' + i + '">Copy hash</button>' : '') +
+        '<button class="small quiet" data-remove="' + i + '">Remove</button></span></div>' + hash + meta + '</div>';
     }).join('');
-    el.innerHTML = '<table><thead><tr><th>#</th><th>File</th><th>Bytes</th><th>' + esc($('algo').value) + ' hash</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
     Array.prototype.forEach.call(el.querySelectorAll('button[data-remove]'), function (b) {
       b.addEventListener('click', function () { files.splice(Number(b.getAttribute('data-remove')), 1); renderFiles(); });
+    });
+    Array.prototype.forEach.call(el.querySelectorAll('button[data-copy]'), function (b) {
+      b.addEventListener('click', function () {
+        var h = files[Number(b.getAttribute('data-copy'))].hash;
+        if (navigator.clipboard) navigator.clipboard.writeText(h).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy hash'; }, 1500); });
+      });
     });
   }
 
@@ -775,6 +903,56 @@ function missingItems(d) {
     ['aTime', 'bTime'].forEach(function (id) { if (!$(id).value) $(id).value = t.time; });
   }
 
+  // Language of documents and quoted Schedule lines
+  Array.prototype.forEach.call(document.querySelectorAll('.statute[data-hi]'), function (p) { p.setAttribute('data-en', p.innerHTML); });
+  function applyLang() {
+    var hi = $('docLang').value === 'hi';
+    Array.prototype.forEach.call(document.querySelectorAll('.statute[data-hi]'), function (p) {
+      p.innerHTML = hi ? p.getAttribute('data-hi') : p.getAttribute('data-en');
+      if (hi) p.setAttribute('lang', 'hi'); else p.removeAttribute('lang');
+    });
+  }
+  $('docLang').addEventListener('change', applyLang);
+
+  // Verify: recompute a stated hash against a dropped file
+  var vFile = null;
+  function statedAlgo(text) {
+    var h = String(text || '').toLowerCase().replace(/[^0-9a-f]/g, '');
+    if (h.length === 64) return { algo: 'SHA256', hex: h };
+    if (h.length === 40) return { algo: 'SHA1', hex: h };
+    if (h.length === 32) return { algo: 'MD5', hex: h };
+    return null;
+  }
+  function runVerify() {
+    var out = $('vResult');
+    var stated = statedAlgo($('statedHash').value);
+    if (!vFile && !$('statedHash').value.trim()) { out.innerHTML = ''; return; }
+    if (!stated) { out.innerHTML = '<p class="muted">The stated value is not a recognisable SHA256, SHA1 or MD5 hash (64, 40 or 32 hexadecimal characters).</p>'; return; }
+    if (!vFile) { out.innerHTML = '<p class="muted">Reads as ' + stated.algo + '. Drop the file to compare.</p>'; return; }
+    out.innerHTML = '<p class="muted">Computing ' + stated.algo + ' of ' + esc(vFile.name) + '…</p>';
+    hashBytes(vFile.bytes, stated.algo).then(function (h) {
+      var same = h === stated.hex;
+      out.innerHTML =
+        '<div class="verdict' + (same ? '' : ' bad') + '">' + (same ? 'Match.' : 'No match.') + '</div>' +
+        '<p>' + (same ? 'The ' + stated.algo + ' value of ' : 'The ' + stated.algo + ' value of ') + '<strong>' + esc(vFile.name) + '</strong> (' + vFile.size.toLocaleString('en-IN') + ' bytes) ' +
+        (same ? 'is identical to the stated value.' : 'differs from the stated value. Either this is not the file the certificate refers to, or it has been altered since the hash was taken, or the certificate is wrong.') + '</p>' +
+        '<div class="meta">Computed now, ' + esc(istNow().date) + ' at ' + esc(istNow().time) + ' IST:</div><div class="hashval">' + groups(h) + '</div>' +
+        '<div class="meta">As stated in the certificate:</div><div class="hashval">' + groups(stated.hex) + '</div>';
+    });
+  }
+  var vDrop = $('vDrop'), vInput = $('vFileInput');
+  function takeVerifyFile(list) {
+    if (!list || !list.length) return;
+    var f = list[0];
+    f.arrayBuffer().then(function (buf) { vFile = { name: f.name, size: f.size, bytes: new Uint8Array(buf) }; runVerify(); });
+  }
+  vDrop.addEventListener('click', function () { vInput.click(); });
+  vInput.addEventListener('change', function () { takeVerifyFile(vInput.files); vInput.value = ''; });
+  vDrop.addEventListener('dragover', function (e) { e.preventDefault(); vDrop.classList.add('over'); });
+  vDrop.addEventListener('dragleave', function () { vDrop.classList.remove('over'); });
+  vDrop.addEventListener('drop', function (e) { e.preventDefault(); vDrop.classList.remove('over'); takeVerifyFile(e.dataTransfer.files); });
+  $('statedHash').addEventListener('input', runVerify);
+
   // Drop zone
   var drop = $('drop'), input = $('fileInput');
   drop.addEventListener('click', function () { input.click(); });
@@ -790,21 +968,21 @@ function missingItems(d) {
   $('genCert').addEventListener('click', function () {
     var d = readForm();
     showWarnings(d);
-    download(buildDocx(certificateBody(d)), 'Section-63-Certificate-' + istNow().date.replace(/\//g, '-') + '.docx');
+    download(buildDocx(certificateBody(d)), 'Section-63-Certificate-' + d.lang + '-' + istNow().date.replace(/\//g, '-') + '.docx');
   });
   $('genReport').addEventListener('click', function () {
     var d = readForm();
     showWarnings(d);
-    download(buildDocx(hashReportBody(d)), 'Section-63-Hash-Report-' + istNow().date.replace(/\//g, '-') + '.docx');
+    download(buildDocx(hashReportBody(d)), 'Section-63-Hash-Report-' + d.lang + '-' + istNow().date.replace(/\//g, '-') + '.docx');
   });
   $('clearAll').addEventListener('click', function () {
     if (!confirm('Clear all fields and remove all files?')) return;
-    files = [];
+    files = []; vFile = null; $('vResult').innerHTML = '';
     Array.prototype.forEach.call(document.querySelectorAll('input[type=text], textarea'), function (i) { i.value = ''; });
     Array.prototype.forEach.call(document.querySelectorAll('input[type=checkbox]'), function (c) { c.checked = false; });
     Array.prototype.forEach.call(document.querySelectorAll('select'), function (s) { s.selectedIndex = 0; });
     $('warnings').innerHTML = ''; $('bWarn').innerHTML = '';
-    renderFiles(); stamp();
+    renderFiles(); stamp(); applyLang();
   });
 
   if (!(window.crypto && crypto.subtle)) {
