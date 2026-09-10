@@ -86,199 +86,235 @@
   ol.decisions li strong { display: block; margin-bottom: 3px; font-family: var(--serif); font-size: 1.1rem; }
   a { color: var(--accent); }
   footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 0.88rem; }
+  .topbar { display: flex; justify-content: flex-end; gap: 4px; margin: -16px 0 18px; }
+  .topbar button { background: none; border: 1px solid transparent; color: var(--ink-soft); padding: 4px 10px; font-size: 0.9rem; }
+  .topbar button[aria-pressed="true"] { border-color: var(--rule); color: var(--ink); background: var(--field); }
+  html.ui-hi body, html.ui-hi button, html.ui-hi input, html.ui-hi select, html.ui-hi textarea { font-family: "Nirmala UI", Mangal, "Noto Sans Devanagari", "Kohinoor Devanagari", system-ui, sans-serif; }
+  html.ui-hi h1, html.ui-hi h2, html.ui-hi h3, html.ui-hi .act, html.ui-hi .verdict, html.ui-hi ol.decisions li strong { font-family: "Nirmala UI", Mangal, "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif; }
+  html.ui-hi .statute { font-style: normal; }
+  @media (max-width: 640px) {
+    html { font-size: 16px; }
+    main { padding: 20px 16px 60px; }
+    h1 { font-size: 1.65rem; }
+    h2 { font-size: 1.3rem; margin-top: 36px; }
+    .topbar { margin: -4px 0 14px; }
+    input[type=text], select, textarea { font-size: 16px; padding: 11px 12px; }
+    button { padding: 12px 16px; font-size: 1rem; }
+    button.small { padding: 8px 12px; font-size: 0.9rem; }
+    .actions { flex-direction: column; }
+    .actions button { width: 100%; }
+    .checks { gap: 10px 18px; }
+    .checks label { min-height: 36px; }
+    .checks input { width: 20px; height: 20px; }
+    .record .name { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .record .tools { width: 100%; }
+    .record .tools button { flex: 1; }
+    .hashval { font-size: 1rem; }
+    .langrow { flex-direction: column; align-items: stretch; }
+    .langrow select { width: 100%; }
+    .drop { padding: 18px 14px; }
+    code { word-break: break-all; }
+  }
 </style>
 </head>
 <body>
 <main>
 
-<p class="act">Bharatiya Sakshya Adhiniyam, 2023 — The Schedule, see section 63(4)(c)</p>
-<h1>Certificate for an electronic record</h1>
-<p class="sub">Fills the Schedule form (Part A and Part B), computes the hash value of the electronic record on this computer, and produces the certificate and the hash report as Word documents. Also checks a hash value stated by someone else against a file. Nothing you enter or drop here leaves this page.</p>
+<div class="topbar" role="group" aria-label="Page language">
+  <button type="button" id="uiEn" aria-pressed="true">English</button>
+  <button type="button" id="uiHi" aria-pressed="false" lang="hi">हिन्दी</button>
+</div>
+
+<p class="act" data-i18n="act">Bharatiya Sakshya Adhiniyam, 2023 — The Schedule, see section 63(4)(c)</p>
+<h1 data-i18n="h1">Certificate for an electronic record</h1>
+<p class="sub" data-i18n="sub">Fills the Schedule form (Part A and Part B), computes the hash value of the electronic record on this computer, and produces the certificate and the hash report as Word documents. Also checks a hash value stated by someone else against a file. Nothing you enter or drop here leaves this page.</p>
+
+<p class="muted" data-i18n="explainerLink" style="margin-top:-20px;margin-bottom:24px">New to this? <a href="explainer.html">Read the one-page explainer</a> — what the certificate is, when it is needed, who signs, what to bring.</p>
 
 <div class="notice">
-  <p><strong>Which law governs your proceeding?</strong> This is the form prescribed by the Schedule to the Bharatiya Sakshya Adhiniyam, 2023, in force from 1 July 2024. Under section 170 of the Adhiniyam, matters pending before that date may continue under the Indian Evidence Act, 1872, where section 65B applies and no form is prescribed. Confirm which law applies before using this certificate.</p>
+  <p data-i18n="notice"><strong>Which law governs your proceeding?</strong> This is the form prescribed by the Schedule to the Bharatiya Sakshya Adhiniyam, 2023, in force from 1 July 2024. Under section 170 of the Adhiniyam, matters pending before that date may continue under the Indian Evidence Act, 1872, where section 65B applies and no form is prescribed. Confirm which law applies before using this certificate.</p>
 </div>
 
 <div class="langrow">
-  <label for="docLang">Language of the certificate and hash report</label>
+  <label for="docLang" data-i18n="docLangLabel">Language of the certificate and hash report</label>
   <select id="docLang">
     <option value="en" selected>English — Gazette pp. 46–47</option>
     <option value="hi">हिन्दी — राजपत्र पृ. 534–535</option>
   </select>
-  <span class="muted">The form below stays in English; the documents and the quoted Schedule lines follow this choice.</span>
+  <span class="muted" data-i18n="docLangNote">The documents and the quoted Schedule lines follow this choice.</span>
 </div>
 
 <!-- ============ 1. Records ============ -->
-<h2>1. Electronic record(s) and hash value</h2>
+<h2 data-i18n="h2_1">1. Electronic record(s) and hash value</h2>
 <p class="statute" data-hi="“मैं, कथन करता/करती हूं कि इलैक्ट्रानिक/डिजिटल अभिलेख/अभिलेख का निम्नलिखित एल्गोरिथ्म के माध्यम से अभिप्राप्त हैश मान ___ है । ☐ एसएचए1 : ☐ एसएचए256 : ☐ एमडी5 : ☐ अन्य (विधिक रूप से स्वीकार्य मानक) (प्रमाणपत्र के साथ हैश रिपोर्ट संलग्न करें)”">“I state that the HASH value/s of the electronic/digital record/s is ___, obtained through the following algorithm:— ☐ SHA1: ☐ SHA256: ☐ MD5: ☐ Other (Legally acceptable standard) (Hash report to be enclosed with the certificate)”</p>
 
-<label for="algo">Algorithm (one algorithm per certificate)</label>
+<label for="algo" data-i18n="algoLabel">Algorithm (one algorithm per certificate)</label>
 <select id="algo" style="max-width: 440px">
   <option value="SHA256" selected>SHA256</option>
-  <option value="SHA1">SHA1 — weaker; known collision attacks</option>
-  <option value="MD5">MD5 — weaker; known collision attacks</option>
+  <option value="SHA1" data-i18n="optSha1">SHA1 — weaker; known collision attacks</option>
+  <option value="MD5" data-i18n="optMd5">MD5 — weaker; known collision attacks</option>
 </select>
 
 <div class="drop" id="drop">
   <input type="file" id="fileInput" multiple>
-  Drop the file(s) that constitute the electronic record here, or click to choose. Drop the exact file you will produce to the court; the hash is computed on it as it is now.
+  <span data-i18n="dropMain">Drop the file(s) that constitute the electronic record here, or click to choose. Drop the exact file you will produce to the court; the hash is computed on it as it is now.</span>
 </div>
 <div id="fileList" aria-live="polite"></div>
-<p class="muted">Do not open and re-save an exported file after hashing; the hash will change. Very large files may take some time.</p>
+<p class="muted" data-i18n="resaveNote">Do not open and re-save an exported file after hashing; the hash will change. Very large files may take some time.</p>
 
 <!-- ============ 2. Part A ============ -->
-<h2>2. Part A — to be filled by the Party</h2>
+<h2 data-i18n="h2_2">2. Part A — to be filled by the Party</h2>
 <p class="statute" data-hi="“मैं, ___ (नाम), पुत्र/पुत्री/पति/पत्नी ___, जो ___ का निवासी ___ में नियोजित हूं, सत्यनिष्ठापूर्वक प्रतिज्ञान और शुद्ध अन्तःकरण से कथन करता/करती हूं और निम्नानुसार प्रस्तुत करता/करती हूं कि :—”">“I, ___ (Name), Son/daughter/spouse of ___ residing/employed at ___ do hereby solemnly affirm and sincerely state and submit as follows:—”</p>
 
-<label for="aName">Name</label>
+<label for="aName" data-i18n="name">Name</label>
 <input type="text" id="aName" autocomplete="off">
 <div class="row">
   <div>
-    <label for="aRel">Son / daughter / spouse of</label>
+    <label for="aRel" data-i18n="relLabel">Son / daughter / spouse of</label>
     <select id="aRel">
-      <option value="">— leave as printed —</option>
-      <option value="Son">Son</option>
-      <option value="Daughter">Daughter</option>
-      <option value="Spouse">Spouse</option>
+      <option value="" data-i18n="asPrinted">— leave as printed —</option>
+      <option value="Son" data-i18n="son">Son</option>
+      <option value="Daughter" data-i18n="daughter">Daughter</option>
+      <option value="Spouse" data-i18n="spouse">Spouse</option>
     </select>
   </div>
   <div>
-    <label for="aParent">Name of father / mother / spouse</label>
+    <label for="aParent" data-i18n="parentLabel">Name of father / mother / spouse</label>
     <input type="text" id="aParent" autocomplete="off">
   </div>
 </div>
 <div class="row">
   <div>
-    <label for="aRes">Residing / employed at</label>
+    <label for="aRes" data-i18n="resLabel">Residing / employed at</label>
     <select id="aRes">
-      <option value="">— leave as printed —</option>
-      <option value="residing">residing</option>
-      <option value="employed">employed</option>
+      <option value="" data-i18n="asPrinted">— leave as printed —</option>
+      <option value="residing" data-i18n="residing">residing</option>
+      <option value="employed" data-i18n="employed">employed</option>
     </select>
   </div>
   <div>
-    <label for="aAddress">Address</label>
+    <label for="aAddress" data-i18n="address">Address</label>
     <input type="text" id="aAddress" autocomplete="off">
   </div>
 </div>
 
-<h3>Device / digital record source</h3>
+<h3 data-i18n="h3_source">Device / digital record source</h3>
 <p class="statute" data-hi="“मैंने निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से लिए गए डिजिटल अभिलेख का इलैक्ट्रानिक अभिलेख/आउटपुट प्रस्तुत किया है (चिह्न लगाएं) :”">“I have produced electronic record/output of the digital record taken from the following device/digital record source (tick mark):—”</p>
 <div class="checks" id="sources">
-  <label><input type="checkbox" value="Computer / Storage Media"> Computer / Storage Media</label>
-  <label><input type="checkbox" value="DVR"> DVR</label>
-  <label><input type="checkbox" value="Mobile"> Mobile</label>
-  <label><input type="checkbox" value="Flash Drive"> Flash Drive</label>
-  <label><input type="checkbox" value="CD/DVD"> CD/DVD</label>
-  <label><input type="checkbox" value="Server"> Server</label>
-  <label><input type="checkbox" value="Cloud"> Cloud</label>
-  <label><input type="checkbox" value="Other"> Other</label>
+  <label><input type="checkbox" value="Computer / Storage Media"> <span data-i18n="src0">Computer / Storage Media</span></label>
+  <label><input type="checkbox" value="DVR"> <span data-i18n="src1">DVR</span></label>
+  <label><input type="checkbox" value="Mobile"> <span data-i18n="src2">Mobile</span></label>
+  <label><input type="checkbox" value="Flash Drive"> <span data-i18n="src3">Flash Drive</span></label>
+  <label><input type="checkbox" value="CD/DVD"> <span data-i18n="src4">CD/DVD</span></label>
+  <label><input type="checkbox" value="Server"> <span data-i18n="src5">Server</span></label>
+  <label><input type="checkbox" value="Cloud"> <span data-i18n="src6">Cloud</span></label>
+  <label><input type="checkbox" value="Other"> <span data-i18n="src7">Other</span></label>
 </div>
-<label for="otherSource">Other (specify)</label>
+<label for="otherSource" data-i18n="otherSpecify">Other (specify)</label>
 <input type="text" id="otherSource" autocomplete="off">
 
-<h3>Particulars of the device / digital record</h3>
+<h3 data-i18n="h3_particulars">Particulars of the device / digital record</h3>
 <p class="statute" data-hi="“बनावट और मॉडल : ___ रंग : ___ क्रम संख्या : ___ आईएमईआई/यूआईएन/यूआईडी/एमएसी/क्लाउड आईडी ___ (जैसा लागू हो) और डिवाइस/डिजिटल अभिलेख ___ (विनिर्दिष्ट करें) के विषय में कोई अन्य सुसंगत सूचना, यदि कोई हो ।”">“Make &amp; Model: ___ Color: ___ Serial Number: ___ IMEI/UIN/UID/MAC/Cloud ID ___ (as applicable) and any other relevant information, if any, about the device/digital record ___ (specify).”</p>
 <div class="row3">
-  <div><label for="make">Make &amp; Model</label><input type="text" id="make" autocomplete="off"></div>
-  <div><label for="colour">Color</label><input type="text" id="colour" autocomplete="off"></div>
-  <div><label for="serial">Serial Number</label><input type="text" id="serial" autocomplete="off"></div>
+  <div><label for="make" data-i18n="make">Make &amp; Model</label><input type="text" id="make" autocomplete="off"></div>
+  <div><label for="colour" data-i18n="colour">Color</label><input type="text" id="colour" autocomplete="off"></div>
+  <div><label for="serial" data-i18n="serial">Serial Number</label><input type="text" id="serial" autocomplete="off"></div>
 </div>
-<label for="devId">IMEI / UIN / UID / MAC / Cloud ID (as applicable)</label>
+<label for="devId" data-i18n="devId">IMEI / UIN / UID / MAC / Cloud ID (as applicable)</label>
 <input type="text" id="devId" autocomplete="off">
-<label for="otherInfo">Any other relevant information about the device / digital record</label>
+<label for="otherInfo" data-i18n="otherInfo">Any other relevant information about the device / digital record</label>
 <textarea id="otherInfo" rows="2"></textarea>
 
-<h3>Control of the device</h3>
+<h3 data-i18n="h3_control">Control of the device</h3>
 <p class="statute" data-hi="“डिजिटल डिवाइस या डिजिटल अभिलेख का स्रोत मेरे द्वारा :— स्वामित्वाधीन ☐ अनुरक्षित ☐ प्रबंधित ☐ प्रचालित (जो लागू हो उसका चयन करें) है ।”">“The digital device or the source of the digital record is:— Owned ☐ Maintained ☐ Managed ☐ Operated ☐ by me (select as applicable).”</p>
 <div class="checks" id="control">
-  <label><input type="checkbox" value="Owned"> Owned</label>
-  <label><input type="checkbox" value="Maintained"> Maintained</label>
-  <label><input type="checkbox" value="Managed"> Managed</label>
-  <label><input type="checkbox" value="Operated"> Operated</label>
+  <label><input type="checkbox" value="Owned"> <span data-i18n="ctl0">Owned</span></label>
+  <label><input type="checkbox" value="Maintained"> <span data-i18n="ctl1">Maintained</span></label>
+  <label><input type="checkbox" value="Managed"> <span data-i18n="ctl2">Managed</span></label>
+  <label><input type="checkbox" value="Operated"> <span data-i18n="ctl3">Operated</span></label>
 </div>
-<p class="muted">The Schedule's declaration about lawful control, regular use and proper working is printed in full in the certificate; it is not editable here.</p>
+<p class="muted" data-i18n="declNote">The Schedule's declaration about lawful control, regular use and proper working is printed in full in the certificate; it is not editable here.</p>
 
-<h3>Date, time and place of signing</h3>
+<h3 data-i18n="h3_date">Date, time and place of signing</h3>
 <div class="row3">
-  <div><label for="aDate">Date (DD/MM/YYYY)</label><input type="text" id="aDate" autocomplete="off"></div>
-  <div><label for="aTime">Time (IST, 24 hours, HH:MM)</label><input type="text" id="aTime" autocomplete="off"></div>
-  <div><label for="aPlace">Place</label><input type="text" id="aPlace" autocomplete="off"></div>
+  <div><label for="aDate" data-i18n="date">Date (DD/MM/YYYY)</label><input type="text" id="aDate" autocomplete="off"></div>
+  <div><label for="aTime" data-i18n="time">Time (IST, 24 hours, HH:MM)</label><input type="text" id="aTime" autocomplete="off"></div>
+  <div><label for="aPlace" data-i18n="place">Place</label><input type="text" id="aPlace" autocomplete="off"></div>
 </div>
 
 <!-- ============ 3. Part B ============ -->
-<h2>3. Part B — to be filled by the Expert</h2>
+<h2 data-i18n="h2_3">3. Part B — to be filled by the Expert</h2>
 <p class="statute" data-hi="“प्रस्तुत किए गए डिजिटल अभिलेख के इलैक्ट्रानिकी अभिलेख/आउटपुट, निम्नलिखित डिवाइस/डिजिटल अभिलेख स्रोत से अभिप्राप्त किए गए हैं (चिह्न लगाएं) : … हैश मान ___ है :— … (नाम, पदनाम और हस्ताक्षर)”">“The produced electronic record/output of the digital record are obtained from the following device/digital record source (tick mark):— … I state that the HASH value/s of the electronic/digital record/s is ___ … (Name, designation and signature)”</p>
-<p>The device particulars, source ticks, hash values and algorithm in Part B are printed from Part A above. The expert should verify them before signing. Who may sign Part B is an open question of law — see decision 4 in section 6. Nothing here is copied from the Part A signatory.</p>
+<p data-i18n="partBNote">The device particulars, source ticks, hash values and algorithm in Part B are printed from Part A above. The expert should verify them before signing. Who may sign Part B is an open question of law, with three practical routes — see decision 4 in section 6. Nothing here is copied from the Part A signatory.</p>
 
-<label for="bName">Name of expert (leave blank to print a blank for the expert to complete)</label>
+<label for="bName" data-i18n="expertName">Name of expert (leave blank to print a blank for the expert to complete)</label>
 <input type="text" id="bName" autocomplete="off">
 <div class="row">
   <div>
-    <label for="bRel">Son / daughter / spouse of</label>
+    <label for="bRel" data-i18n="relLabel">Son / daughter / spouse of</label>
     <select id="bRel">
-      <option value="">— leave as printed —</option>
-      <option value="Son">Son</option>
-      <option value="Daughter">Daughter</option>
-      <option value="Spouse">Spouse</option>
+      <option value="" data-i18n="asPrinted">— leave as printed —</option>
+      <option value="Son" data-i18n="son">Son</option>
+      <option value="Daughter" data-i18n="daughter">Daughter</option>
+      <option value="Spouse" data-i18n="spouse">Spouse</option>
     </select>
   </div>
-  <div><label for="bParent">Name of father / mother / spouse</label><input type="text" id="bParent" autocomplete="off"></div>
+  <div><label for="bParent" data-i18n="parentLabel">Name of father / mother / spouse</label><input type="text" id="bParent" autocomplete="off"></div>
 </div>
 <div class="row">
   <div>
-    <label for="bRes">Residing / employed at</label>
+    <label for="bRes" data-i18n="resLabel">Residing / employed at</label>
     <select id="bRes">
-      <option value="">— leave as printed —</option>
-      <option value="residing">residing</option>
-      <option value="employed">employed</option>
+      <option value="" data-i18n="asPrinted">— leave as printed —</option>
+      <option value="residing" data-i18n="residing">residing</option>
+      <option value="employed" data-i18n="employed">employed</option>
     </select>
   </div>
-  <div><label for="bAddress">Address</label><input type="text" id="bAddress" autocomplete="off"></div>
+  <div><label for="bAddress" data-i18n="address">Address</label><input type="text" id="bAddress" autocomplete="off"></div>
 </div>
-<label for="bDesig">Designation</label>
+<label for="bDesig" data-i18n="designation">Designation</label>
 <input type="text" id="bDesig" autocomplete="off">
 <div class="row3">
-  <div><label for="bDate">Date (DD/MM/YYYY)</label><input type="text" id="bDate" autocomplete="off"></div>
-  <div><label for="bTime">Time (IST, 24 hours, HH:MM)</label><input type="text" id="bTime" autocomplete="off"></div>
-  <div><label for="bPlace">Place</label><input type="text" id="bPlace" autocomplete="off"></div>
+  <div><label for="bDate" data-i18n="date">Date (DD/MM/YYYY)</label><input type="text" id="bDate" autocomplete="off"></div>
+  <div><label for="bTime" data-i18n="time">Time (IST, 24 hours, HH:MM)</label><input type="text" id="bTime" autocomplete="off"></div>
+  <div><label for="bPlace" data-i18n="place">Place</label><input type="text" id="bPlace" autocomplete="off"></div>
 </div>
 <div id="bWarn"></div>
 
 <!-- ============ 4. Generate ============ -->
-<h2>4. Produce the documents</h2>
+<h2 data-i18n="h2_4">4. Produce the documents</h2>
 <div class="actions">
-  <button id="genCert">Download certificate (.docx)</button>
-  <button id="genReport" class="quiet">Download hash report (.docx)</button>
-  <button id="clearAll" class="quiet">Clear everything</button>
+  <button id="genCert" data-i18n="btnCert">Download certificate (.docx)</button>
+  <button id="genReport" class="quiet" data-i18n="btnReport">Download hash report (.docx)</button>
+  <button id="clearAll" class="quiet" data-i18n="btnClear">Clear everything</button>
 </div>
 <div id="warnings"></div>
-<p class="muted">Blank fields are printed as blank lines for completion by hand. The certificate is a Word file in the Schedule's wording; check it against the Gazette text before filing. Independently verify a hash with <code>certutil -hashfile &lt;file&gt; SHA256</code> (Windows) or <code>shasum -a 256 &lt;file&gt;</code> (macOS/Linux).</p>
+<p class="muted" data-i18n="produceNote">Blank fields are printed as blank lines for completion by hand. The certificate is a Word file in the Schedule's wording; check it against the Gazette text before filing. Independently verify a hash with <code>certutil -hashfile &lt;file&gt; SHA256</code> (Windows) or <code>shasum -a 256 &lt;file&gt;</code> (macOS/Linux).</p>
 
 <!-- ============ 5. Verify ============ -->
-<h2>5. Check a hash value stated by someone else</h2>
-<p>When the other side, or the police, files a certificate with a hash value, drop the file they produced and paste the value from their certificate. The page recomputes the hash and tells you whether it is the same file. The algorithm is read from the length of the value: 64 characters SHA256, 40 SHA1, 32 MD5.</p>
-<label for="statedHash">Hash value as stated in the certificate</label>
+<h2 data-i18n="h2_5">5. Check a hash value stated by someone else</h2>
+<p data-i18n="verifyIntro">When the other side, or the police, files a certificate with a hash value, drop the file they produced and paste the value from their certificate. The page recomputes the hash and tells you whether it is the same file. The algorithm is read from the length of the value: 64 characters SHA256, 40 SHA1, 32 MD5.</p>
+<label for="statedHash" data-i18n="statedLabel">Hash value as stated in the certificate</label>
 <input type="text" id="statedHash" autocomplete="off" spellcheck="false" style="font-family: var(--mono)">
 <div class="drop" id="vDrop">
   <input type="file" id="vFileInput">
-  Drop the file that was produced with that certificate, or click to choose.
+  <span data-i18n="vDrop">Drop the file that was produced with that certificate, or click to choose.</span>
 </div>
 <div id="vResult"></div>
 
 <!-- ============ 6. Decisions ============ -->
-<h2>6. Decisions this page does not make</h2>
-<p class="muted">Drafted from the sources linked. Not legal advice. For counsel's review before reliance.</p>
+<h2 data-i18n="h2_6">6. Decisions this page does not make</h2>
+<p class="muted" data-i18n="decisionsNote">Drafted from the sources linked. Not legal advice. For counsel's review before reliance.</p>
 <ol class="decisions">
   <li>
     <strong>Is a certificate required at all?</strong>
-    Section 63 applies to a “computer output” — information from an electronic record that is printed, stored, recorded or copied — proved without producing the original. Section 57, Explanation 5, treats an electronic record produced from proper custody as primary evidence unless it is disputed. In <em>Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal</em>, (2020) 7 SCC 1, para 34, the Supreme Court said the certificate is unnecessary where the original device is produced by its owner, who proves that the device is owned or operated by him; the Himachal Pradesh High Court applied this under the Adhiniyam in <em>Nirmal Malakar v. Larisa Enterprises</em> (1 June 2026), and the Patna High Court in <em>Jyoti Rani v. Nishant Kumar</em> (6 August 2026) set aside a divorce decree because WhatsApp messages had been exhibited without the certificate, holding that oral evidence cannot cure the omission. Whether you are producing the original or a copy is your decision.
-    <span class="muted">Sources: <a href="https://www.mha.gov.in/sites/default/files/2024-04/250882_english_01042024_0.pdf">Act text, official Gazette PDF (MHA)</a>; <a href="https://indiankanoon.org/doc/163440774/">Nirmal Malakar (HP HC), Indian Kanoon</a>; <a href="https://www.livelaw.in/high-court/patna-high-court/patna-high-court-whatsapp-messages-inadmissible-section65b-certificate-545171">Jyoti Rani (Patna HC), LiveLaw</a>.</span>
+    Section 63 applies to a “computer output” — information from an electronic record that is printed, stored, recorded or copied — proved without producing the original. Section 57, Explanation 5, treats an electronic record produced from proper custody as primary evidence unless it is disputed. In <em>Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal</em>, (2020) 7 SCC 1, para 34, the Supreme Court said the certificate is unnecessary where the original device is produced by its owner, who proves that the device is owned or operated by him; the Himachal Pradesh High Court applied this under the Adhiniyam in <em>Nirmal Malakar v. Larisa Enterprises</em> (1 June 2026), and the Patna High Court in <em>Jyoti Rani v. Nishant Kumar</em> (6 August 2026) set aside a divorce decree because WhatsApp messages had been exhibited without the certificate, holding that oral evidence cannot cure the omission. The practical alternative to a certificate is therefore to produce the device itself — the phone on which the chat exists, the DVR, the laptop — and prove that it is yours, rather than a printout or a copy. Whether you are producing the original or a copy is your decision.
+    <span class="muted">Sources: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>; <a href="https://www.lawtodaylive.com/judgment/10d2d94966c66c690ed4cdfe5e8347ad">Nirmal Malakar (HP HC)</a>; <a href="https://www.livelaw.in/high-court/patna-high-court/patna-high-court-whatsapp-messages-inadmissible-section65b-certificate-545171">Jyoti Rani (Patna HC), LiveLaw</a>.</span>
   </li>
   <li>
     <strong>Which law governs the proceeding?</strong>
     The Adhiniyam came into force on 1 July 2024. Section 170 saves the Indian Evidence Act, 1872 for matters pending before that date, where section 65B applies and no form of certificate is prescribed. This page produces only the Schedule form under the Adhiniyam.
-    <span class="muted">Source: <a href="https://www.mha.gov.in/sites/default/files/2024-04/250882_english_01042024_0.pdf">Act text, official Gazette PDF (MHA)</a>.</span>
+    <span class="muted">Source: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>.</span>
   </li>
   <li>
     <strong>Who signs Part A?</strong>
@@ -287,7 +323,7 @@
   </li>
   <li>
     <strong>Who signs Part B?</strong>
-    Section 63(4) adds the words “and an expert”. Section 39(2) treats an Examiner of Electronic Evidence notified under section 79A of the Information Technology Act, 2000 as an expert; few have been notified (MeitY added six laboratories on 9 July 2026). In <em>Pune Bar Association v. Union of India</em>, W.P.(C) No. 599 of 2026 (22 May 2026), the Supreme Court observed that a person having special skill and expertise in computer science and cyber forensics may sign Part B if the court is satisfied on unimpeachable material, held that the Madras High Court's contrary view is not binding precedent, and expressly kept the question of law open. This page does not pre-fill Part B from Part A.
+    Section 63(4) adds the words “and an expert”. Section 39(2) treats an Examiner of Electronic Evidence notified under section 79A of the Information Technology Act, 2000 as an expert; few have been notified (MeitY added six laboratories on 9 July 2026). In <em>Pune Bar Association v. Union of India</em>, W.P.(C) No. 599 of 2026 (22 May 2026), the Supreme Court observed that a person having special skill and expertise in computer science and cyber forensics may sign Part B if the court is satisfied on unimpeachable material, held that the Madras High Court's contrary view is not binding precedent, and expressly kept the question of law open. In practice three routes exist, in descending order of safety: a laboratory notified under section 79A; a State forensic science laboratory, which a private party usually reaches only through a direction of the court; or a private cyber-forensics professional with demonstrable credentials, whose qualifications should be attached to the certificate. Having the party or a local computer technician sign Part B is common and legally exposed. This page does not pre-fill Part B from Part A.
     <span class="muted">Sources: <a href="https://indiankanoon.org/doc/5836207/">SC order</a>; <a href="https://www.medianama.com/2026/08/223-meity-six-examiners-electronic-evidence/">MeitY notification report</a>.</span>
   </li>
   <li>
@@ -298,17 +334,23 @@
   <li>
     <strong>When must the certificate be filed?</strong>
     Section 63(4) says the certificate is to be submitted along with the electronic record at each instance where it is being submitted for admission. Under section 65B the Supreme Court in <em>Arjun Panditrao</em> allowed later production in some circumstances. Whether that flexibility carries into the Adhiniyam is for counsel to assess.
-    <span class="muted">Source: <a href="https://www.mha.gov.in/sites/default/files/2024-04/250882_english_01042024_0.pdf">Act text, official Gazette PDF (MHA)</a>; (2020) 7 SCC 1.</span>
+    <span class="muted">Source: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>; (2020) 7 SCC 1.</span>
   </li>
   <li>
     <strong>Does a Family Court need the certificate at all?</strong>
     Section 14 of the Family Courts Act, 1984 allows a Family Court to receive any report, statement, document, information or matter that may assist it, whether or not it would otherwise be admissible under the law of evidence. The Bombay High Court (<em>AMB v. SB</em>, 2026:BHC-NAG:5200-DB, April 2026) treated section 65B objections as inapplicable in family proceedings on that basis. The Patna High Court, four months later in <em>Jyoti Rani</em>, applied the certificate requirement strictly in a matrimonial appeal. Which line your Family Court follows is for counsel; the safer course is usually to file the certificate anyway.
     <span class="muted">Sources: <a href="https://www.verdictum.in/court-updates/high-courts/bombay-high-court/amb-v-sb-2026bhc-nag5200-db-mental-cruelty-divorce-matrimonial-law-1611293">AMB v. SB (Bombay HC), Verdictum</a>; <a href="https://www.livelaw.in/high-court/patna-high-court/patna-high-court-whatsapp-messages-inadmissible-section65b-certificate-545171">Jyoti Rani (Patna HC), LiveLaw</a>.</span>
   </li>
+  <li>
+    <strong>Does this forum apply the Adhiniyam at all?</strong>
+    Section 1 confines the Adhiniyam to judicial proceedings in or before a court, including a court-martial; it does not apply to affidavits presented to a court or officer, nor to proceedings before an arbitrator. Consumer commissions, most tribunals and departmental inquiries are not strictly bound by it, though many expect the certificate in practice and some have their own rules on electronic records. Check the forum's rules before assuming the certificate is required — or that its absence will be excused.
+    <span class="muted">Source: <a href="https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf">Act text, India Code</a>, section 1.</span>
+  </li>
 </ol>
 
 <footer>
-  English Schedule wording and layout checked against the Gazette of India, Extraordinary, Part II, Section 1, No. 55, 25 December 2023 (Act No. 47 of 2023), pages 46–47; Hindi against the Gazette of India, Extraordinary, Part II, Section 1A (अनुभाग 1क), pages 534–535, published 27 March 2024 — both on 9 September 2026. One deliberate departure: the Hindi Gazette prints three boxes on the स्वामित्वाधीन/अनुरक्षित/प्रबंधित/प्रचालित line; a fourth is added so that प्रचालित can be ticked. The Hindi hash report wording is this page's own, not statutory text. Hashing uses the browser's Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). Everything runs locally; the page makes no network requests. September 2026.
+  English Schedule wording and layout checked against the Gazette of India, Extraordinary, Part II, Section 1, No. 55, 25 December 2023 (Act No. 47 of 2023), pages 46–47; Hindi against the Gazette of India, Extraordinary, Part II, Section 1A (अनुभाग 1क), pages 534–535, published 27 March 2024 — both on 9 September 2026. One deliberate departure: the Hindi Gazette prints three boxes on the स्वामित्वाधीन/अनुरक्षित/प्रबंधित/प्रचालित line; a fourth is added so that प्रचालित can be ticked. The Hindi hash report wording is this page's own, not statutory text. Hashing uses the browser's Web Crypto API (SHA256, SHA1) or a JavaScript implementation of MD5 (RFC 1321). Everything runs locally; the page makes no network requests.
+  <br><br>Decision notes last reviewed 10 September 2026. Found an error, a newer ruling, or a court that accepted or rejected one of these certificates? <a href="https://github.com/letme2x/section63-certificate/issues">Report it here</a>. <a href="https://github.com/letme2x/section63-certificate/blob/main/CHANGELOG.md">Changelog</a>.
 </footer>
 
 </main>
@@ -380,7 +422,8 @@ function makeZip(entries) {
     lh.set(name, 30);
 
     var ch = new Uint8Array(46 + name.length);
-    le32(ch, 0, 0x02014B50); le16(ch, 4, 20); le16(ch, 6, 20); le16(ch, 8, 0); le16(ch, 10, 0);
+    le32(ch, 0, 0x02014B50); le16(ch, 4, 20); le16(ch, 6, 20); le16(ch, 8, 0);
+    le16(ch, 10, 0);
     le16(ch, 12, dosTime); le16(ch, 14, dosDate); le32(ch, 16, crc);
     le32(ch, 20, data.length); le32(ch, 24, data.length); le16(ch, 28, name.length);
     le16(ch, 30, 0); le16(ch, 32, 0); le16(ch, 34, 0); le16(ch, 36, 0); le32(ch, 38, 0); le32(ch, 42, offset);
@@ -761,235 +804,22 @@ function buildDocx(bodyXml) {
 }
 
 /**
- * List the Part A items that are still blank, in Schedule order.
- * Input: form data. Output: array of human-readable strings.
+ * List the items that are still blank, in Schedule order.
+ * Input: form data. Output: array of codes, rendered into the page language by the caller.
  */
 function missingItems(d) {
   var m = [];
-  if (!d.a.name.trim()) m.push('Part A: name of the person signing');
-  if (!d.a.parent.trim()) m.push('Part A: name of father / mother / spouse');
-  if (!d.a.address.trim()) m.push('Part A: address');
-  if (d.sources.length === 0) m.push('Part A: no device / digital record source ticked');
-  if (d.sources.indexOf('Other') >= 0 && !d.otherSource.trim()) m.push('Part A: "Other" ticked but not specified');
-  if (!d.make.trim()) m.push('Part A: make & model');
-  if (d.control.length === 0) m.push('Part A: no owned / maintained / managed / operated box ticked');
-  if (d.files.length === 0) m.push('No electronic record hashed');
-  if (!d.a.date.trim()) m.push('Part A: date');
-  if (!d.a.time.trim()) m.push('Part A: time');
-  if (!d.a.place.trim()) m.push('Part A: place');
-  if (!d.b.name.trim()) m.push('Part B: expert not named (printed blank for the expert to complete)');
+  if (!d.a.name.trim()) m.push('aName');
+  if (!d.a.parent.trim()) m.push('aParent');
+  if (!d.a.address.trim()) m.push('aAddress');
+  if (d.sources.length === 0) m.push('sources');
+  if (d.sources.indexOf('Other') >= 0 && !d.otherSource.trim()) m.push('otherSource');
+  if (!d.make.trim()) m.push('make');
+  if (d.control.length === 0) m.push('control');
+  if (d.files.length === 0) m.push('files');
+  if (!d.a.date.trim()) m.push('aDate');
+  if (!d.a.time.trim()) m.push('aTime');
+  if (!d.a.place.trim()) m.push('aPlace');
+  if (!d.b.name.trim()) m.push('bName');
   return m;
 }
-</script>
-
-<script>
-/* ---------- Page wiring ---------- */
-(function () {
-  var files = [];   // {name, size, bytes, hash, date, time}
-
-  function $(id) { return document.getElementById(id); }
-  function ticked(containerId) {
-    return Array.prototype.map.call(document.querySelectorAll('#' + containerId + ' input:checked'), function (c) { return c.value; });
-  }
-
-  /** Read every form field into the data object used by the core builders. */
-  function readForm() {
-    return {
-      lang: $('docLang').value,
-      algo: $('algo').value,
-      files: files.filter(function (f) { return f.hash; }),
-      sources: ticked('sources'),
-      otherSource: $('otherSource').value,
-      make: $('make').value, colour: $('colour').value, serial: $('serial').value,
-      devId: $('devId').value, otherInfo: $('otherInfo').value,
-      control: ticked('control'),
-      a: { name: $('aName').value, rel: $('aRel').value, parent: $('aParent').value, res: $('aRes').value,
-           address: $('aAddress').value, date: $('aDate').value, time: $('aTime').value, place: $('aPlace').value },
-      b: { name: $('bName').value, rel: $('bRel').value, parent: $('bParent').value, res: $('bRes').value,
-           address: $('bAddress').value, desig: $('bDesig').value, date: $('bDate').value, time: $('bTime').value, place: $('bPlace').value }
-    };
-  }
-
-  /** Hex string as eight-character groups in spans; spacing is visual only, so copying yields the continuous value. */
-  function groups(hex) {
-    return hex.match(/.{1,8}/g).map(function (g) { return '<span>' + g + '</span>'; }).join('');
-  }
-
-  /** Render one block per file: name, the hash large, then algorithm, size and time. */
-  function renderFiles() {
-    var el = $('fileList');
-    if (files.length === 0) { el.innerHTML = ''; return; }
-    var algo = $('algo').value;
-    el.innerHTML = files.map(function (f, i) {
-      var hash = f.hash
-        ? '<div class="hashval">' + groups(f.hash) + '</div>'
-        : '<div class="hashval pending">Computing ' + esc(algo) + '…</div>';
-      var meta = f.hash
-        ? '<div class="meta">' + esc(algo) + ', ' + f.size.toLocaleString('en-IN') + ' bytes, computed ' + esc(f.date) + ' at ' + esc(f.time) + ' IST</div>'
-        : '';
-      return '<div class="record"><div class="name"><span>' + (i + 1) + '. ' + esc(f.name) + '</span>' +
-        '<span class="tools">' + (f.hash ? '<button class="small quiet" data-copy="' + i + '">Copy hash</button>' : '') +
-        '<button class="small quiet" data-remove="' + i + '">Remove</button></span></div>' + hash + meta + '</div>';
-    }).join('');
-    Array.prototype.forEach.call(el.querySelectorAll('button[data-remove]'), function (b) {
-      b.addEventListener('click', function () { files.splice(Number(b.getAttribute('data-remove')), 1); renderFiles(); });
-    });
-    Array.prototype.forEach.call(el.querySelectorAll('button[data-copy]'), function (b) {
-      b.addEventListener('click', function () {
-        var h = files[Number(b.getAttribute('data-copy'))].hash;
-        if (navigator.clipboard) navigator.clipboard.writeText(h).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy hash'; }, 1500); });
-      });
-    });
-  }
-
-  function esc(s) { return xmlEscape(s); }
-
-  /** Compute (or recompute) hashes for every file with the selected algorithm. */
-  function computeAll() {
-    var algo = $('algo').value;
-    files.forEach(function (f) { f.hash = ''; });
-    renderFiles();
-    var chain = Promise.resolve();
-    files.forEach(function (f) {
-      chain = chain.then(function () {
-        return hashBytes(f.bytes, algo).then(function (h) {
-          var t = istNow();
-          f.hash = h; f.date = t.date; f.time = t.time;
-          renderFiles();
-        });
-      });
-    });
-    chain.catch(function (e) { alert('Hashing failed: ' + e.message); });
-  }
-
-  /** Add dropped or chosen files, reading each fully into memory. */
-  function addFiles(list) {
-    var reads = Array.prototype.map.call(list, function (file) {
-      return file.arrayBuffer().then(function (buf) {
-        files.push({ name: file.name, size: file.size, bytes: new Uint8Array(buf), hash: '' });
-      });
-    });
-    Promise.all(reads).then(computeAll);
-  }
-
-  /** Trigger a download of bytes under the given filename. */
-  function download(bytes, filename) {
-    var blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
-    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 1000);
-  }
-
-  /** Show the list of blank items above the buttons. */
-  function showWarnings(d) {
-    var m = missingItems(d);
-    $('warnings').innerHTML = m.length
-      ? '<div class="warn">Printed with blanks for: <ul><li>' + m.map(esc).join('</li><li>') + '</li></ul></div>'
-      : '';
-  }
-
-  /** Warn when the Part B name matches the Part A name. */
-  function checkPartB() {
-    var a = $('aName').value.trim(), b = $('bName').value.trim();
-    $('bWarn').innerHTML = (a && b && a.toLowerCase() === b.toLowerCase())
-      ? '<div class="warn">The Part B signatory is the same person as Part A. Whether the party may sign Part B as the expert is an open question of law (decision 4).</div>'
-      : '';
-  }
-
-  function stamp() {
-    var t = istNow();
-    ['aDate', 'bDate'].forEach(function (id) { if (!$(id).value) $(id).value = t.date; });
-    ['aTime', 'bTime'].forEach(function (id) { if (!$(id).value) $(id).value = t.time; });
-  }
-
-  // Language of documents and quoted Schedule lines
-  Array.prototype.forEach.call(document.querySelectorAll('.statute[data-hi]'), function (p) { p.setAttribute('data-en', p.innerHTML); });
-  function applyLang() {
-    var hi = $('docLang').value === 'hi';
-    Array.prototype.forEach.call(document.querySelectorAll('.statute[data-hi]'), function (p) {
-      p.innerHTML = hi ? p.getAttribute('data-hi') : p.getAttribute('data-en');
-      if (hi) p.setAttribute('lang', 'hi'); else p.removeAttribute('lang');
-    });
-  }
-  $('docLang').addEventListener('change', applyLang);
-
-  // Verify: recompute a stated hash against a dropped file
-  var vFile = null;
-  function statedAlgo(text) {
-    var h = String(text || '').toLowerCase().replace(/[^0-9a-f]/g, '');
-    if (h.length === 64) return { algo: 'SHA256', hex: h };
-    if (h.length === 40) return { algo: 'SHA1', hex: h };
-    if (h.length === 32) return { algo: 'MD5', hex: h };
-    return null;
-  }
-  function runVerify() {
-    var out = $('vResult');
-    var stated = statedAlgo($('statedHash').value);
-    if (!vFile && !$('statedHash').value.trim()) { out.innerHTML = ''; return; }
-    if (!stated) { out.innerHTML = '<p class="muted">The stated value is not a recognisable SHA256, SHA1 or MD5 hash (64, 40 or 32 hexadecimal characters).</p>'; return; }
-    if (!vFile) { out.innerHTML = '<p class="muted">Reads as ' + stated.algo + '. Drop the file to compare.</p>'; return; }
-    out.innerHTML = '<p class="muted">Computing ' + stated.algo + ' of ' + esc(vFile.name) + '…</p>';
-    hashBytes(vFile.bytes, stated.algo).then(function (h) {
-      var same = h === stated.hex;
-      out.innerHTML =
-        '<div class="verdict' + (same ? '' : ' bad') + '">' + (same ? 'Match.' : 'No match.') + '</div>' +
-        '<p>' + (same ? 'The ' + stated.algo + ' value of ' : 'The ' + stated.algo + ' value of ') + '<strong>' + esc(vFile.name) + '</strong> (' + vFile.size.toLocaleString('en-IN') + ' bytes) ' +
-        (same ? 'is identical to the stated value.' : 'differs from the stated value. Either this is not the file the certificate refers to, or it has been altered since the hash was taken, or the certificate is wrong.') + '</p>' +
-        '<div class="meta">Computed now, ' + esc(istNow().date) + ' at ' + esc(istNow().time) + ' IST:</div><div class="hashval">' + groups(h) + '</div>' +
-        '<div class="meta">As stated in the certificate:</div><div class="hashval">' + groups(stated.hex) + '</div>';
-    });
-  }
-  var vDrop = $('vDrop'), vInput = $('vFileInput');
-  function takeVerifyFile(list) {
-    if (!list || !list.length) return;
-    var f = list[0];
-    f.arrayBuffer().then(function (buf) { vFile = { name: f.name, size: f.size, bytes: new Uint8Array(buf) }; runVerify(); });
-  }
-  vDrop.addEventListener('click', function () { vInput.click(); });
-  vInput.addEventListener('change', function () { takeVerifyFile(vInput.files); vInput.value = ''; });
-  vDrop.addEventListener('dragover', function (e) { e.preventDefault(); vDrop.classList.add('over'); });
-  vDrop.addEventListener('dragleave', function () { vDrop.classList.remove('over'); });
-  vDrop.addEventListener('drop', function (e) { e.preventDefault(); vDrop.classList.remove('over'); takeVerifyFile(e.dataTransfer.files); });
-  $('statedHash').addEventListener('input', runVerify);
-
-  // Drop zone
-  var drop = $('drop'), input = $('fileInput');
-  drop.addEventListener('click', function () { input.click(); });
-  input.addEventListener('change', function () { addFiles(input.files); input.value = ''; });
-  drop.addEventListener('dragover', function (e) { e.preventDefault(); drop.classList.add('over'); });
-  drop.addEventListener('dragleave', function () { drop.classList.remove('over'); });
-  drop.addEventListener('drop', function (e) { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); });
-
-  $('algo').addEventListener('change', computeAll);
-  $('aName').addEventListener('input', checkPartB);
-  $('bName').addEventListener('input', checkPartB);
-
-  $('genCert').addEventListener('click', function () {
-    var d = readForm();
-    showWarnings(d);
-    download(buildDocx(certificateBody(d)), 'Section-63-Certificate-' + d.lang + '-' + istNow().date.replace(/\//g, '-') + '.docx');
-  });
-  $('genReport').addEventListener('click', function () {
-    var d = readForm();
-    showWarnings(d);
-    download(buildDocx(hashReportBody(d)), 'Section-63-Hash-Report-' + d.lang + '-' + istNow().date.replace(/\//g, '-') + '.docx');
-  });
-  $('clearAll').addEventListener('click', function () {
-    if (!confirm('Clear all fields and remove all files?')) return;
-    files = []; vFile = null; $('vResult').innerHTML = '';
-    Array.prototype.forEach.call(document.querySelectorAll('input[type=text], textarea'), function (i) { i.value = ''; });
-    Array.prototype.forEach.call(document.querySelectorAll('input[type=checkbox]'), function (c) { c.checked = false; });
-    Array.prototype.forEach.call(document.querySelectorAll('select'), function (s) { s.selectedIndex = 0; });
-    $('warnings').innerHTML = ''; $('bWarn').innerHTML = '';
-    renderFiles(); stamp(); applyLang();
-  });
-
-  if (!(window.crypto && crypto.subtle)) {
-    $('warnings').innerHTML = '<div class="warn">This browser does not expose the Web Crypto API here. Open the page over https:// or as a local file in a current browser.</div>';
-  }
-  stamp();
-})();
-</script>
-</body>
-</html>
