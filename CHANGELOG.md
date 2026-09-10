@@ -20,7 +20,7 @@ https://github.com/letme2x/section63-certificate/issues
 
 ## v2.1 — 10 September 2026
 - Certificate and hash report in Hindi from the Hindi Gazette text (selector under the notice).
-- One deliberate departure recorded: the Hindi Gazette prints three boxes on the स्वामित्वाधीन line; a fourth is added so प्रचालित can be ticked.
+- Hindi export now follows the Gazette's exact control line: boxes appear after स्वामित्वाधीन, अनुरक्षित and प्रबंधित, with no box after प्रचालित.
 
 ## v2 — 9 September 2026
 - Layout corrected line for line against Gazette pp. 46–47 (capitals, long dashes, line breaks, vertical algorithm list, right-aligned signature labels).
